@@ -38,7 +38,23 @@ function mapAuthError(message: string) {
     return "Ya existe una cuenta con ese correo.";
   }
 
-  return "No pudimos completar la operacion. Intenta de nuevo.";
+  if (normalized.includes("database error saving new user")) {
+    return "Supabase no pudo guardar el usuario. Revisa el trigger o el SQL de perfiles en la base de datos.";
+  }
+
+  if (normalized.includes("error sending confirmation email")) {
+    return "Supabase no pudo enviar el correo de verificacion. Revisa la configuracion de Auth y SMTP.";
+  }
+
+  if (normalized.includes("email rate limit exceeded")) {
+    return "Se alcanzo el limite de correos de verificacion. Espera unos minutos e intenta otra vez.";
+  }
+
+  if (normalized.includes("redirect")) {
+    return "La URL de redireccion del correo no esta permitida en Supabase Auth.";
+  }
+
+  return `Error de Supabase: ${message}`;
 }
 
 export async function loginAction(
