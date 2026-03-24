@@ -23,6 +23,10 @@ function isEmailValid(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
+function logAuthError(action: string, error: { message?: string }) {
+  console.error(`[${action}] Supabase auth error`, error);
+}
+
 function mapAuthError(message: string) {
   const normalized = message.toLowerCase();
 
@@ -52,6 +56,10 @@ function mapAuthError(message: string) {
 
   if (normalized.includes("redirect")) {
     return "La URL de redireccion del correo no esta permitida en Supabase Auth.";
+  }
+
+  if (normalized.includes("fetch failed")) {
+    return "Vercel no pudo conectarse a Supabase. Revisa NEXT_PUBLIC_SUPABASE_URL y NEXT_PUBLIC_SUPABASE_ANON_KEY en Vercel, y vuelve a desplegar.";
   }
 
   return `Error de Supabase: ${message}`;
@@ -87,6 +95,7 @@ export async function loginAction(
   });
 
   if (error) {
+    logAuthError("loginAction", error);
     return createErrorState(mapAuthError(error.message));
   }
 
@@ -142,6 +151,7 @@ export async function signupAction(
   });
 
   if (error) {
+    logAuthError("signupAction", error);
     return createErrorState(mapAuthError(error.message));
   }
 
