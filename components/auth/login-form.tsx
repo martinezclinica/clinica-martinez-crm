@@ -28,17 +28,18 @@ export default function LoginForm({ errorCode }: LoginFormProps) {
     state.status === "error" || (!state.message && Boolean(pageMessage));
 
   return (
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#ead2c3] px-6 py-10 sm:px-8">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(255,255,255,0.7),transparent_24%),radial-gradient(circle_at_18%_24%,rgba(246,205,221,0.28),transparent_30%),radial-gradient(circle_at_84%_30%,rgba(255,255,255,0.2),transparent_32%),linear-gradient(180deg,#efd8ca_0%,#e4cab9_64%,#b6b0b5_84%,#33405c_100%)]" />
-      <div className="absolute inset-x-0 bottom-[-8%] h-[26rem] bg-[radial-gradient(ellipse_at_bottom,rgba(22,36,61,0.7),transparent_60%)]" />
-      <div className="absolute left-1/2 top-[10%] h-72 w-72 -translate-x-1/2 rounded-full bg-white/35 blur-3xl" />
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#ead2c3] px-4 py-6 sm:px-6 sm:py-10">
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/auth-login-pattern.svg')" }}
+      />
 
-      <section className="auth-glow frost-panel relative w-full max-w-[29rem] rounded-[2rem] border border-white/75 bg-white/94 px-8 py-9 shadow-[0_34px_70px_rgba(22,36,61,0.18)] sm:px-8">
-        <div className="flex justify-center">
+      <section className="auth-glow frost-panel relative w-full max-w-[29rem] rounded-[2rem] border border-white/78 bg-white/94 px-6 py-8 shadow-[0_34px_70px_rgba(22,36,61,0.18)] sm:px-8 sm:py-9">
+        <div className="mb-8 flex justify-center">
           <BrandLockup align="center" />
         </div>
 
-        <form action={formAction} className="mt-9 space-y-5">
+        <form action={formAction} className="space-y-5">
           {activeMessage ? (
             <div
               className={`rounded-xl border px-4 py-3 text-sm leading-6 ${
