@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { signOutAction } from "@/app/actions/auth";
 import { BrandLockup } from "@/components/auth/brand-lockup";
 import { SubmitButton } from "@/components/auth/submit-button";
+import { WaitAutoRefresh } from "@/components/auth/wait-auto-refresh";
 import { getCurrentUserProfile } from "@/lib/auth/session";
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
@@ -93,6 +94,7 @@ export default async function WaitPage({
           <p className="mx-auto mt-4 max-w-xl text-lg leading-8 text-brand-steel">
             {message.body}
           </p>
+          <WaitAutoRefresh />
         </div>
 
         <div className="mt-10 grid gap-4 rounded-[1.5rem] border border-brand-gray/70 bg-brand-ivory/80 p-5 sm:grid-cols-2">
